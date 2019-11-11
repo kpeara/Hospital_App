@@ -22,11 +22,18 @@ body {
     color: white;
 }
 
-nav {
+.navbar {
     background-color: black;
-    color: white;
     padding: 10px;
     text-align: center;
+}
+
+.navbar a:link {
+    color: white;
+}
+
+.navbar a:visited {
+    color: white;
 }
 
 .content {

@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>HPDR</title>
-    <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
 <?php include("templates/header.php"); ?>
@@ -31,9 +31,8 @@ if (isset($_POST["define_order"]) && !empty($_POST["col_order"])) {
 </tr>
 
 <?php
-    
     while($row=mysqli_fetch_assoc($result)) {
-    ?>
+?>
     
     <tr>
         <th><a href="details.php?firstname=<?php echo $row["First_Name"] ?>&lastname=<?php echo $row["Last_Name"] ?>"><?php echo $row["First_Name"]; ?></a></th>
@@ -44,14 +43,16 @@ if (isset($_POST["define_order"]) && !empty($_POST["col_order"])) {
     }
     
     mysqli_free_result($result);
-    mysqli_close($connection);
 }
 else if (empty($_POST["col_order"]) && empty($_POST["row_order"])){
    // case where no radio buttons selected
+   echo "<p style='color: red;'>" . "<b>Error: No Options Selected</b>" . "</p>";
 }
 else if (empty($_POST["col_order"])){
    echo "<p style='color: red;'>" . "<b>Error: Select Column to Order By</b>" . "</p>";
 }
+
+mysqli_close($connection);
 
 ?>
 </table>
