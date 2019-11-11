@@ -1,6 +1,3 @@
-<?php
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +7,7 @@
 <body>
 <?php include("templates/header.php"); ?>
 <div class="content">
-<h2> View Current Doctors </h2>
+<h1> View Current Doctors </h1>
 <table>
 <?php
 
