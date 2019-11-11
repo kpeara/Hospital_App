@@ -10,7 +10,12 @@
 <body>
 <?php include("templates/header.php"); ?>
 <div class="content">
+<h1> DOCTORS </h1>
 <table>
+<tr style="background-color: lightblue;">
+    <th>FirstName</th>
+    <th>LastName</th>
+</tr>
 <?php
 
 include("dbconnect.php");
@@ -19,9 +24,14 @@ $query = "SELECT First_Name, Last_Name FROM Doctor;";
 $result = mysqli_query($connection, $query);
 
 while($row=mysqli_fetch_assoc($result)) {
-	echo "<tr>";
-	echo "<th>" . $row["First_Name"] . " " . $row["Last_Name"] . "</th>";
-	echo "</tr>";
+?>
+
+<tr>
+    <th><?php echo $row["First_Name"]; ?></th>
+    <th><?php echo $row["Last_Name"]; ?></th>
+</tr>
+
+<?php
 }
 
 mysqli_free_result($result);

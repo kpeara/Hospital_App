@@ -1,25 +1,45 @@
+html, body {
+   width: 100%;
+}
+
 body {
     margin: 0px;
 }
+
 .title {
     font-size: 50px;
 }
+
 .subtitle {
     font-size: 18px;
     padding-left: 20px;
 }
+
 .titlebar {
     background-color: #3F67E8;
     padding: 20px;
     text-align: center;
     color: white;
 }
+
 nav {
     background-color: black;
     color: white;
     padding: 10px;
     text-align: center;
 }
+
 .content {
+    //margin: 0 auto;
     text-align: center;
+}
+
+table {
+   margin: 0 auto;
+   border-collapse: collapse;
+}
+
+table, td, th {
+    border: 3px solid black;
+    padding: 10px;
 }
