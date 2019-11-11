@@ -17,7 +17,9 @@ if (isset($_GET['firstname']) && isset($_GET['lastname'])) {
     $firstname =  $_GET['firstname'];
     $lastname =  $_GET['lastname'];
 
-    $query = "SELECT * FROM Doctor WHERE First_Name='$firstname' AND Last_Name='$lastname';";
+    echo "<h1>Dr. " . $firstname . " " . $lastname . "</h1>";
+
+    $query = "SELECT Licence_No, First_Name, Last_Name, Specialty, Licence_Date, Hospital_Name, Doctor.Hospital_Code FROM Doctor, Hospital WHERE First_Name='$firstname' AND Last_Name='$lastname' AND Doctor.Hospital_Code = Hospital.Hospital_Code;";
     // if query failed condition
 
     $result = mysqli_query($connection, $query);
@@ -31,6 +33,7 @@ if (isset($_GET['firstname']) && isset($_GET['lastname'])) {
             <th>Specialty</th>
             <th>Licence Date</th>
             <th>Hospital Code</th>
+            <th>Hospital Name</th>
         </tr>
 
 <?php
@@ -43,6 +46,7 @@ if (isset($_GET['firstname']) && isset($_GET['lastname'])) {
             <th><?php echo $row["Specialty"] ?></th>
             <th><?php echo $row["Licence_Date"] ?></th>
             <th><?php echo $row["Hospital_Code"] ?></th>
+            <th><?php echo $row["Hospital_Name"] ?></th>
         </tr>
 
 <?php 
