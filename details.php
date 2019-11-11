@@ -22,40 +22,43 @@ if (isset($_GET['firstname']) && isset($_GET['lastname'])) {
 
     $result = mysqli_query($connection, $query);
 
+    if (!(mysqli_num_rows($result) == 0)) {
 ?>
-
-    <tr style="background-color: lightblue;">
-        <th>Licence No.</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Specialty</th>
-        <th>Licence Date</th>
-        <th>Hospital Code</th>
-    </tr>
+        <tr style="background-color: lightblue;">
+            <th>Licence No.</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Specialty</th>
+            <th>Licence Date</th>
+            <th>Hospital Code</th>
+        </tr>
 
 <?php
-    while($row=mysqli_fetch_assoc($result)) {
+        while($row=mysqli_fetch_assoc($result)) {
 ?>
-    <tr>
-        <th><?php echo $row["Licence_No"] ?></th>
-        <th><?php echo $row["First_Name"] ?></th>
-        <th><?php echo $row["Last_Name"] ?></th>
-        <th><?php echo $row["Specialty"] ?></th>
-        <th><?php echo $row["Licence_Date"] ?></th>
-        <th><?php echo $row["Hospital_Code"] ?></th>
-    </tr>
+        <tr>
+            <th><?php echo $row["Licence_No"] ?></th>
+            <th><?php echo $row["First_Name"] ?></th>
+            <th><?php echo $row["Last_Name"] ?></th>
+            <th><?php echo $row["Specialty"] ?></th>
+            <th><?php echo $row["Licence_Date"] ?></th>
+            <th><?php echo $row["Hospital_Code"] ?></th>
+        </tr>
 
 <?php 
-
-    }
+        }
     mysqli_free_result($result);
 
-}
-else {
+    }
+    else {
+	echo "<p style='color: red;'>" . "<b>Error: Doctor Not Found</b>" . "</p>";
+    }
+
 }
 
 mysqli_close($connection);
-
 ?>
 </table>
 </div>
+</body>
+</html>

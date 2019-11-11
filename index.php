@@ -44,11 +44,11 @@ if (isset($_POST["define_order"]) && !empty($_POST["col_order"])) {
     
     mysqli_free_result($result);
 }
-else if (empty($_POST["col_order"]) && empty($_POST["row_order"])){
+else if (isset($_POST["define_order"]) && empty($_POST["col_order"]) && empty($_POST["row_order"])){
    // case where no radio buttons selected
    echo "<p style='color: red;'>" . "<b>Error: No Options Selected</b>" . "</p>";
 }
-else if (empty($_POST["col_order"])){
+else if (isset($_POST["define_order"]) && empty($_POST["col_order"])){
    echo "<p style='color: red;'>" . "<b>Error: Select Column to Order By</b>" . "</p>";
 }
 
