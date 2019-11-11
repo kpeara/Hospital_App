@@ -36,8 +36,8 @@ if (isset($_POST["define_order"]) && !empty($_POST["col_order"])) {
     ?>
     
     <tr>
-        <th><?php echo $row["First_Name"]; ?></th>
-        <th><?php echo $row["Last_Name"]; ?></th>
+        <th><a href="details.php?firstname=<?php echo $row["First_Name"] ?>&lastname=<?php echo $row["Last_Name"] ?>"><?php echo $row["First_Name"]; ?></a></th>
+        <th><a href="details.php?firstname=<?php echo $row["First_Name"] ?>&lastname=<?php echo $row["Last_Name"] ?>"><?php echo $row["Last_Name"]; ?></a></th>
     </tr>
     
     <?php
@@ -72,10 +72,6 @@ else if (empty($_POST["col_order"])){
         <input type="submit" name="define_order">
     </div>
 </form>
-
-<?php
-include("dbconnect.php");
-?>
 </div>
 </body>
 </html>
