@@ -22,7 +22,6 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
 
     $unique_licence_no = True;
     while($row=mysqli_fetch_assoc($result)) {
-	echo $row["Licence_No"];
         if ($row["Licence_No"] == $licence_no) {
 	    $unique_licence_no = False;
 	    break;
