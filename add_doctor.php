@@ -19,6 +19,11 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
     $result = mysqli_query($connection, $query);
 
     $licence_no = str_replace(' ', '', $_POST["licenceno"]); // removes spaces
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $specialty = $_POST["specialty"];
+    $licence_date = $_POST["licencedate"];
+    $hospital_code = $_POST["hospitalcode"];
 
     $unique_licence_no = True;
     while($row=mysqli_fetch_assoc($result)) {
@@ -28,41 +33,16 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
 	}
     }
 
-    if ($unique_licence_no == True) {
-// if function() is false do this:
-    /*
-    $query = "SELECT * FROM Doctor WHERE Licence_Date > '$date'";
-    $result = mysqli_query($connection, $query);
-    
-    if (!(mysqli_num_rows($result) == 0)) {
-    ?>
-        <tr style="background-color: lightblue;">
-            <th>Licence No.</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Specialty</th>
-            <th>Licence Date</th>
-            <th>Hospital Code</th>
-        </tr>
-        
-<?php
-        while($row=mysqli_fetch_assoc($result)) {
-    ?>
-        <tr>
-            <th><?php echo $row["Licence_No"] ?></th>
-            <th><?php echo $row["First_Name"] ?></th>
-            <th><?php echo $row["Last_Name"] ?></th>
-            <th><?php echo $row["Specialty"] ?></th>
-            <th><?php echo $row["Licence_Date"] ?></th>
-            <th><?php echo $row["Hospital_Code"] ?></th>
-        </tr>
-<?php
-        }
+    if (strlen($licence_no) < 4) { // if licence no is not proper length
+    	$unique_licence_no = False;
+    }
+
+    if ($unique_licence_no == True) { // if unique licence number
+        $query = "INSERT INTO Doctor VALUES ('$licence_no', '$firstname', '$lastname', '$specialty', '$licence_date', '$hospital_code');";
+        $result = mysqli_query($connection, $query);
     }
     mysqli_free_result($result);
-    */
 
-    }
 }
 mysqli_close($connection);
 ?>
@@ -73,7 +53,7 @@ mysqli_close($connection);
 	Last Name:<input type="text" name="lastname"><br>
 	Specialty:<input type="text" name="specialty"><br>
 	Licence Date:<input type="text" name="licencedate"><br>
-	Hospital:<select name="hospitals">
+	Hospital:<select name="hospitalcode">
 	<?php
 
 	include("dbconnect.php");
