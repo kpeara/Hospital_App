@@ -73,16 +73,16 @@ mysqli_close($connection);
 	Last Name:<input type="text" name="lastname"><br>
 	Specialty:<input type="text" name="specialty"><br>
 	Licence Date:<input type="text" name="licencedate"><br>
-	Hospital Code:<select name="hospitalname">
+	Hospital:<select name="hospitals">
 	<?php
 
 	include("dbconnect.php");
 
-	$query = "SELECT Hospital_Code FROM Hospital;";
+	$query = "SELECT * FROM Hospital;";
 	$result = mysqli_query($connection, $query);
 
         while($row=mysqli_fetch_assoc($result)) {
-	    echo "<option value='" . $row["Hospital_Code"] . "'>" . $row["Hospital_Code"] . "</option>";
+	    echo "<option value='" . $row["Hospital_Code"] . "'>" . $row["Hospital_Name"] . ", " . $row["City"] . " " . $row["Province"] . " (" . $row["Hospital_Code"] . ")" . "</option>";
 	}
 	mysqli_close($connection);
 
