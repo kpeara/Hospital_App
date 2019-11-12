@@ -7,4 +7,5 @@
     <a href="doctor_search.php">DOCTOR SEARCH</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="add_doctor.php">ADD DOCTOR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="delete_doctor.php">DELETE DOCTOR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="hospitals.php">HOSPITALS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
