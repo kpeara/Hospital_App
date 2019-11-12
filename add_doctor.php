@@ -18,11 +18,18 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
     $query = "SELECT Licence_No FROM Doctor;";
     $result = mysqli_query($connection, $query);
 
+    $licence_no = str_replace(' ', '', $_POST["licenceno"]); // removes spaces
+
+    $unique_licence_no = True;
     while($row=mysqli_fetch_assoc($result)) {
-        if ($row["Licence_No"] == $) {
+	echo $row["Licence_No"];
+        if ($row["Licence_No"] == $licence_no) {
+	    $unique_licence_no = False;
+	    break;
 	}
     }
 
+    if ($unique_licence_no == True) {
 // if function() is false do this:
     /*
     $query = "SELECT * FROM Doctor WHERE Licence_Date > '$date'";
@@ -55,6 +62,8 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
     }
     mysqli_free_result($result);
     */
+
+    }
 }
 mysqli_close($connection);
 ?>
