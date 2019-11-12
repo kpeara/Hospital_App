@@ -32,7 +32,7 @@ if (isset($_GET["search_doctor"]) && verifyDate($_GET["date"])) {
 
     $date = $_GET["date"];
 
-    $query = "SELECT * FROM Doctor WHERE Licence_Date > '$date'";
+    $query = "SELECT * FROM Doctor WHERE Licence_Date < '$date'";
     $result = mysqli_query($connection, $query);
     
     if (!(mysqli_num_rows($result) == 0)) {

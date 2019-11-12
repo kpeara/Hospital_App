@@ -12,11 +12,19 @@
 
 include("dbconnect.php");
 
-if (isset($_POST["search_doctor"])) {
+if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST["firstname"]) && !empty($_POST["lastname"]) && !empty($_POST["specialty"]) && !empty($_POST["licencedate"])) {
 // check if licence number is already in database
 
-    $date = $_GET["date"];
+    $query = "SELECT Licence_No FROM Doctor;";
+    $result = mysqli_query($connection, $query);
 
+    while($row=mysqli_fetch_assoc($result)) {
+        if ($row["Licence_No"] == $) {
+	}
+    }
+
+// if function() is false do this:
+    /*
     $query = "SELECT * FROM Doctor WHERE Licence_Date > '$date'";
     $result = mysqli_query($connection, $query);
     
@@ -46,6 +54,7 @@ if (isset($_POST["search_doctor"])) {
         }
     }
     mysqli_free_result($result);
+    */
 }
 mysqli_close($connection);
 ?>
