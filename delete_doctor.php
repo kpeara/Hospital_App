@@ -13,20 +13,6 @@
 
 include("dbconnect.php");
 
-if (isset($_GET["delete_doctor"])) {
-
-    $licence_no = $_GET["delete_doctor"];
-    echo $licence_no;
-
-    // check if they have patients
-    // check if they are head
-
-    /*
-    $query = "SELECT * FROM Doctor;";
-    $result = mysqli_query($connection, $query);
-    */
-}
-
 $query = "SELECT Licence_No, First_Name, Last_Name FROM Doctor;";
 $result = mysqli_query($connection, $query);
     
@@ -56,5 +42,32 @@ mysqli_close($connection);
 ?>
 </table>
 <h4>To delete a doctor, click on the X beside their respective rows</h4>
+
+<?php
+
+include("dbconnect.php");
+
+if (isset($_GET["delete_doctor"])) {
+
+    $licence_no = $_GET["delete_doctor"];
+    echo $licence_no;
+
+    // check if they have patients
+    // check if they are head
+
+    $query = "SELECT Doctor_Licence_No FROM Treats;";
+    $result = mysqli_query($connection, $query);
+
+    while($row=mysqli_fetch_assoc($result)) {
+
+        if ($row["Doctor_Licence_No"] == $licence_no) {
+	    // do prompt
+	    echo "\nThis Doctor has patients";
+        }
+    }
+}
+
+?>
+
 </body>
 </html>
