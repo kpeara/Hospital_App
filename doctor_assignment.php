@@ -17,19 +17,17 @@ include("validOHIP.php");
 
 include("dbconnect.php");
 
-// dont forget to alert user if they are entering in a duplicate (patient doctor pair that already exists)
 if (isset($_POST["stop_treatment"])) {
     $licence_no = $_POST["licenceno"];
     $ohip = $_POST["ohip"];
 
     echo $licence_no . $ohip;
-    /*
     $query = "DELETE FROM Treats WHERE Doctor_Licence_No = '$licence_no' AND Patient_OHIP = '$ohip';";
     $result = mysqli_query($connection, $query);
-    */
 }
 
 // check if patient and doctor exist
+// dont forget to alert user if they are entering in a duplicate (patient doctor pair that already exists)
 else if (isset($_POST["start_treatment"]) && validOHIP($_POST["ohip"]) && validLicenceNo($_POST["licenceno"])) {
     echo "start treatment";
 }
