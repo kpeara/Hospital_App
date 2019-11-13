@@ -7,7 +7,7 @@
 <body>
 <?php include("templates/header.php"); ?>
 <div class="content">
-<h1>Update Hospital</h1>
+<h1>Hospitals</h1>
 <table>
 <?php
 
