@@ -21,7 +21,7 @@ if (isset($_POST["update_hospital"]) && isset($_POST["newname"])) {
     $result = mysqli_query($connection, $query);
 }
 
-$query = "SELECT Hospital.Hospital_Code, Hospital_Name, First_Name, Last_Name, Head_Start_Date FROM Hospital, Doctor WHERE Head_Licence_No = Doctor.Licence_No;";
+$query = "SELECT Hospital.Hospital_Code, Hospital_Name, First_Name, Last_Name, Head_Start_Date FROM Hospital, Doctor WHERE Head_Licence_No = Doctor.Licence_No ORDER BY Hospital_Name;";
 $result = mysqli_query($connection, $query);
 
 if (!(mysqli_num_rows($result) == 0)) {
