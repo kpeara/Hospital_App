@@ -29,7 +29,27 @@ if (isset($_POST["stop_treatment"])) {
 // check if patient and doctor exist
 // dont forget to alert user if they are entering in a duplicate (patient doctor pair that already exists)
 else if (isset($_POST["start_treatment"]) && validOHIP($_POST["ohip"]) && validLicenceNo($_POST["licenceno"])) {
-    echo "start treatment";
+    $licence_no = $_POST["licenceno"];
+    $ohip = $_POST["ohip"];
+
+    // check if doctor licence number exists
+    $query = "SELECT Licence_No FROM Doctor WHERE Licence_No = '$licence_no';";
+    $result = mysqli_query($connection, $query);
+    if (mysqli_num_rows($result) == 0) {
+    	echo "<p style='color: red;'>" . "<b>Error: Licence Number does not exist</b>" . "</p>";
+	die();
+    }
+
+    // check if ohip exists
+    $query = "SELECT OHIP_No FROM Patient WHERE OHIP_No = $ohip;";
+    $result = mysqli_query($connection, $query);
+    if (mysqli_num_rows($result) == 0) {
+    	echo "<p style='color: red;'>" . "<b>Error: OHIP does not exist</b>" . "</p>";
+	die();
+    }
+
+    $query = "INSERT INTO Treats VALUES ('$licence_no', $ohip)";
+    $result = mysqli_query($connection, $query);
 }
 
 $query = "SELECT D.First_Name, D.Last_Name FROM Doctor D LEFT JOIN Treats T ON D.Licence_No = T.Doctor_Licence_No WHERE T.Doctor_Licence_No IS NULL;";

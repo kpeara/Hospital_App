@@ -9,7 +9,7 @@
 <body>
 <?php include("templates/header.php"); ?>
 <div class="content">
-<h1>Doctor Search</h1>
+<h1>Patient Search</h1>
 <table>
 <?php
 
