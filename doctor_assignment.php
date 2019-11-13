@@ -18,9 +18,16 @@ if (isset($_POST["stop_treatment"])) {
     $licence_no = $_POST["licenceno"];
     $ohip = $_POST["ohip"];
 
-    // echo $licence_no . $ohip;
-    //$query = "";
-    //$result = mysqli_query($connection, $query);
+    echo $licence_no . $ohip;
+    /*
+    $query = "DELETE FROM Treats WHERE Doctor_Licence_No = '$licence_no' AND Patient_OHIP = '$ohip';";
+    $result = mysqli_query($connection, $query);
+    */
+}
+
+// check if patient and doctor exist
+else if (isset($_POST["start_treatment"])) {
+    echo "start treatment";
 }
 
 $query = "SELECT D.First_Name, D.Last_Name FROM Doctor D LEFT JOIN Treats T ON D.Licence_No = T.Doctor_Licence_No WHERE T.Doctor_Licence_No IS NULL;";

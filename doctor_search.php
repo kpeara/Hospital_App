@@ -5,8 +5,6 @@ function verifyDate($date) {
 
     $date_array = explode('-', $date);
 
-    if ($date_array[0] > gmdate("Y")) return False;
-
     if ($date_array[1] > 12) return False;
     if ($date_array[2] > 31) return False;
     return True;
