@@ -1,3 +1,7 @@
+<?php
+include("validLicenceNo.php");
+include("validOHIP.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +30,7 @@ if (isset($_POST["stop_treatment"])) {
 }
 
 // check if patient and doctor exist
-else if (isset($_POST["start_treatment"])) {
+else if (isset($_POST["start_treatment"]) && validOHIP($_POST["ohip"]) && validLicenceNo($_POST["licenceno"])) {
     echo "start treatment";
 }
 

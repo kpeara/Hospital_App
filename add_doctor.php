@@ -24,7 +24,7 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
     $result = mysqli_query($connection, $query);
 
     $licence_no = str_replace(' ', '', $_POST["licenceno"]); // removes spaces
-    echo $licence_no;
+    //echo $licence_no;
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $specialty = $_POST["specialty"];
