@@ -76,7 +76,7 @@ mysqli_close($connection);
         <h4>Search by Doctors who were licenced before a given date:</h4>
 	[yyyy-mm-dd]
 	<input type="text" name="date">
-	<input type="submit" name="search_doctor">
+	<input type="submit" name="search_doctor" value="search">
     </div>
 </form>
 </body>
