@@ -38,5 +38,6 @@ mysqli_close($connection);
 
 ?>
 </table>
+<h4>These Doctors currently have no patients</h4>
 </body>
 </html>
