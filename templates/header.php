@@ -9,4 +9,6 @@
     <a href="delete_doctor.php">DELETE DOCTOR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="hospitals.php">HOSPITALS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="patient_search.php">PATIENT SEARCH</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="doctor_assignment.php">DOCTOR ASSIGNMENT</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="available_doctors.php">AVAILABLE DOCTORS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
