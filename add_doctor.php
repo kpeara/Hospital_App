@@ -52,7 +52,7 @@ mysqli_close($connection);
 	First Name:<input type="text" name="firstname"><br>
 	Last Name:<input type="text" name="lastname"><br>
 	Specialty:<input type="text" name="specialty"><br>
-	Licence Date:<input type="text" name="licencedate"><br>
+	Licence Date:<input type="text" name="licencedate"> (yyyy-mm-dd)<br>
 	Hospital:<select name="hospitalcode">
 	<?php
 
