@@ -1,3 +1,8 @@
+<?php
+include("verifyDate.php");
+include("validLicenceNo.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +17,14 @@
 
 include("dbconnect.php");
 
-if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST["firstname"]) && !empty($_POST["lastname"]) && !empty($_POST["specialty"]) && !empty($_POST["licencedate"])) {
+if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST["firstname"]) && !empty($_POST["lastname"]) && !empty($_POST["specialty"]) && !empty($_POST["licencedate"]) && verifyDate($_POST["licencedate"], $_POST["add_doctor"]) && validLicenceNo($_POST["licenceno"])) {
 // check if licence number is already in database
 
     $query = "SELECT Licence_No FROM Doctor;";
     $result = mysqli_query($connection, $query);
 
     $licence_no = str_replace(' ', '', $_POST["licenceno"]); // removes spaces
+    echo $licence_no;
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $specialty = $_POST["specialty"];
@@ -26,22 +32,32 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
     $hospital_code = $_POST["hospitalcode"];
 
     $unique_licence_no = True;
+    //$duplicate = False;
     while($row=mysqli_fetch_assoc($result)) {
         if ($row["Licence_No"] == $licence_no) {
 	    $unique_licence_no = False;
+	    echo "<p style='color: red;'>" . "<b>Error: Licence No. Already exists in system</b>" . "</p>";
+	    $duplicate = True;
+	    die();
 	    break;
 	}
     }
+    mysqli_free_result($result);
 
+    // might add to function
     if (strlen($licence_no) < 4) { // if licence no is not proper length
     	$unique_licence_no = False;
+	echo "<p style='color: red;'>" . "<b>Error: Licence No. length too short</b>" . "</p>";
     }
 
     if ($unique_licence_no == True) { // if unique licence number
         $query = "INSERT INTO Doctor VALUES ('$licence_no', '$firstname', '$lastname', '$specialty', '$licence_date', '$hospital_code');";
         $result = mysqli_query($connection, $query);
     }
-    mysqli_free_result($result);
+
+    if ($result == True) echo "query successful";
+    //echo $result;
+    //mysqli_free_result($result);
 
 }
 mysqli_close($connection);

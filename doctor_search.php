@@ -49,9 +49,6 @@ if (isset($_GET["search_doctor"]) && verifyDate($_GET["date"])) {
     }
     mysqli_free_result($result);
 }
-else if (isset($_GET["date"])) {
-   echo "<p style='color: red;'>" . "<b>Error: Invalid Date</b>" . "</p>";
-}
 
 mysqli_close($connection);
 ?>
