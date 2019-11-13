@@ -29,16 +29,14 @@ if (isset($_POST["delete_doctor"])) {
     }
 
     if ($is_head == False) {
+        $has_patients = False;
 
         // checking if they have patients
-        $query = "SELECT Doctor_Licence_No FROM Treats;";
+        $query = "SELECT Doctor_Licence_No FROM Treats WHERE Doctor_Licence_No = '$licence_no';";
         $result = mysqli_query($connection, $query);
 
-        while($row=mysqli_fetch_assoc($result)) {
-
-            if ($row["Doctor_Licence_No"] == $licence_no) {
-                // do prompt
-                //echo "\nThis Doctor has patients";
+        if(mysqli_num_rows($result) != 0) {
+		$has_patients = True;
 ?>
                 <h4 style="color: red;">This Doctor is treating patients, are you sure you want to delete them?</h4>
                 <form action="delete_doctor.php" method="POST">
@@ -47,13 +45,12 @@ if (isset($_POST["delete_doctor"])) {
             	<input type="submit" name="no_delete" value="No">
                 </form>
 		<br><br>
-<?php 		 break;
-            }
+<?php 		 
         }
     }
 }
 
-if (isset($_POST["yes_delete"])) {
+if (isset($_POST["yes_delete"]) || (isset($has_patients) && $has_patients == False)) {
     echo "deleted";
 }
 
@@ -79,7 +76,6 @@ if (!(mysqli_num_rows($result) == 0)) {
 	    <form action="delete_doctor.php" method="POST">
             <input type="hidden" name="licenceno" value="<?php echo $row["Licence_No"] ?>">
 	    <input type="submit" name="delete_doctor" value="delete">
-	    <!-- <a style="color: red;" href="delete_doctor.php?delete_doctor=<?php //echo $row["Licence_No"]; ?>">X</a> -->
 	    </form>
 	    </th>
 	</tr>
