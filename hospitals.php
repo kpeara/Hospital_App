@@ -1,3 +1,5 @@
+<?php include("validCharLength.php"); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +19,11 @@ if (isset($_POST["update_hospital"]) && isset($_POST["newname"])) {
     $hospital_code = $_POST["hospitalcode"];
     $new_hospital_name = $_POST["newname"];
 
-    $query = "UPDATE Hospital SET Hospital_Name = '$new_hospital_name' WHERE Hospital_Code = '$hospital_code';";
-    $result = mysqli_query($connection, $query);
+    if (validCharLength($new_hospital_name)) {
+
+        $query = "UPDATE Hospital SET Hospital_Name = '$new_hospital_name' WHERE Hospital_Code = '$hospital_code';";
+        $result = mysqli_query($connection, $query);
+    }
 }
 
 $query = "SELECT Hospital.Hospital_Code, Hospital_Name, First_Name, Last_Name, Head_Start_Date FROM Hospital, Doctor WHERE Head_Licence_No = Doctor.Licence_No ORDER BY Hospital_Name;";

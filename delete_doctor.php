@@ -54,6 +54,8 @@ if (isset($_POST["yes_delete"]) || (isset($has_patients) && $has_patients == Fal
 
     $query = "DELETE FROM Doctor WHERE Licence_No = '$licence_no';";
     $result = mysqli_query($connection, $query);
+
+    if ($result == True) echo "<p style='color: green;'><b>success</b></p>";
 }
 
 $query = "SELECT Licence_No, First_Name, Last_Name FROM Doctor;";

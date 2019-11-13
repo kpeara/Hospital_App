@@ -1,6 +1,7 @@
 <?php
 include("verifyDate.php");
 include("validLicenceNo.php");
+include("validCharLength.php");
 ?>
 
 <!DOCTYPE html>
@@ -51,11 +52,14 @@ if (isset($_POST["add_doctor"]) && !empty($_POST["licenceno"]) && !empty($_POST[
     }
 
     if ($unique_licence_no == True) { // if unique licence number
-        $query = "INSERT INTO Doctor VALUES ('$licence_no', '$firstname', '$lastname', '$specialty', '$licence_date', '$hospital_code');";
-        $result = mysqli_query($connection, $query);
+
+	if (validCharLength($firstname) && validCharLength($lastname) && validCharLength($specialty, 1)) { // do specialty 30char case
+            $query = "INSERT INTO Doctor VALUES ('$licence_no', '$firstname', '$lastname', '$specialty', '$licence_date', '$hospital_code');";
+            $result = mysqli_query($connection, $query);
+	}
     }
 
-    if ($result == True) echo "query successful";
+    if ($result == True) echo "<p style='color: green;'><b>success</b></p>";
     //echo $result;
     //mysqli_free_result($result);
 
