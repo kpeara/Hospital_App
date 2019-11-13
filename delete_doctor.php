@@ -51,7 +51,9 @@ if (isset($_POST["delete_doctor"])) {
 }
 
 if (isset($_POST["yes_delete"]) || (isset($has_patients) && $has_patients == False)) {
-    echo "deleted";
+
+    $query = "DELETE FROM Doctor WHERE Licence_No = '$licence_no';";
+    $result = mysqli_query($connection, $query);
 }
 
 $query = "SELECT Licence_No, First_Name, Last_Name FROM Doctor;";
