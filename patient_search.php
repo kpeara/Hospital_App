@@ -25,32 +25,46 @@ if (isset($_GET["search_doctor"]) && validOHIP($_GET["ohip"])) {
 
     $ohip = $_GET["ohip"];
 
-    $query = "SELECT * FROM Patient;";
+    $query = "SELECT OHIP_No FROM Patient;";
     $result = mysqli_query($connection, $query);
-    
-    if (!(mysqli_num_rows($result) == 0)) {
-    ?>
-        <tr style="background-color: lightblue;">
-            <th>Licence No.</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Specialty</th>
-            <th>Licence Date</th>
-            <th>Hospital Code</th>
-        </tr>
+    $ohip_exists = False;
+
+    while ($row=mysqli_fetch_assoc($result)) {
+
+    	if ($row["OHIP_No"] == $ohip) {
+	    $ohip_exists = True;
+	}
+    }
+
+    if ($ohip_exists == False) {
+       echo "<p style='color: red;'>" . "<b>Error: OHIP Does Not Exist</b>" . "</p>";
+    }
+
+    if ($ohip_exists == True) {
+
+        $query = "SELECT P.First_Name, P.Last_Name, D.First_Name AS Doctor_First_Name, D.Last_Name AS Doctor_Last_Name FROM Patient P, Doctor D, Treats T  WHERE P.OHIP_No = T.Patient_OHIP AND D.Licence_No = T.Doctor_Licence_No AND P.OHIP_No = $ohip;";
+        $result = mysqli_query($connection, $query);
         
+        if (!(mysqli_num_rows($result) == 0)) {
+?>
+            <tr style="background-color: lightblue;">
+                <th>Patient First Name</th>
+                <th>Patient Last Name</th>
+                <th>Doctor First Name</th>
+                <th>Doctor Last Name</th>
+            </tr>
+            
 <?php
-        while($row=mysqli_fetch_assoc($result)) {
-    ?>
-        <tr>
-            <th><?php echo $row["Licence_No"] ?></th>
-            <th><?php echo $row["First_Name"] ?></th>
-            <th><?php echo $row["Last_Name"] ?></th>
-            <th><?php echo $row["Specialty"] ?></th>
-            <th><?php echo $row["Licence_Date"] ?></th>
-            <th><?php echo $row["Hospital_Code"] ?></th>
-        </tr>
+            while($row=mysqli_fetch_assoc($result)) {
+?>
+            <tr>
+                <th><?php echo $row["First_Name"] ?></th>
+                <th><?php echo $row["Last_Name"] ?></th>
+                <th><?php echo $row["Doctor_First_Name"] ?></th>
+                <th><?php echo $row["Doctor_Last_Name"] ?></th>
+            </tr>
 <?php
+            }
         }
     }
     mysqli_free_result($result);
