@@ -1,5 +1,7 @@
+<!-- include function used to verify date -->
 <?php include("verifyDate.php"); ?>
 
+<!-- page where user can find doctors licenced before a certain date which they enter -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +17,8 @@
 
 include("dbconnect.php");
 
-if (isset($_GET["search_doctor"]) && verifyDate($_GET["date"])) {
+// generate table
+if (isset($_GET["search_doctor"]) && verifyDate($_GET["date"])) { // if form submitted with valid date
 
     $date = $_GET["date"];
 
@@ -55,6 +58,7 @@ mysqli_close($connection);
 
 </table>
 <br>
+<!-- form that allows user to enter the date to generate a table that shows doctors licenced before entered date -->
 <form action="doctor_search.php" method="GET">
     <div>
         <h4>Search by Doctors who were licenced before a given date:</h4>

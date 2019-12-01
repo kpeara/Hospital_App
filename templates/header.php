@@ -1,3 +1,4 @@
+<!-- navbar template that is reused on all pages, contains hyperlinks to every page user can access -->
 <div class="titlebar">
 <span class="title">HDPR</span>
 <span class="subtitle">The Hospital Doctor-Patient Record Management System</span>

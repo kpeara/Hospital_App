@@ -1,3 +1,4 @@
+<!-- this page outputs the first and last names of doctors with not patients (available doctors) -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,9 @@
 <table>
 <?php
 
-include("dbconnect.php");
+include("dbconnect.php"); // start connection
 
+// generate table of available doctors
 $query = "SELECT D.First_Name, D.Last_Name FROM Doctor D LEFT JOIN Treats T ON D.Licence_No = T.Doctor_Licence_No WHERE T.Doctor_Licence_No IS NULL;";
 $result = mysqli_query($connection, $query);
 
@@ -34,7 +36,7 @@ if (!(mysqli_num_rows($result) == 0)) {
     }
     mysqli_free_result($result);
 }
-mysqli_close($connection);
+mysqli_close($connection); // close connection
 
 ?>
 </table>

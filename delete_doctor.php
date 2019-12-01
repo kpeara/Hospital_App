@@ -1,3 +1,4 @@
+<!-- page where user can delete a doctor from a table of doctors by clicking the delete button beside their name -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +12,18 @@
 <table>
 <?php
 
-include("dbconnect.php");
+include("dbconnect.php"); // open connection
 
 if (isset($_POST["delete_doctor"])) {
     $licence_no = $_POST["licenceno"];
 
-    // checking if they are head
+    // checking if they are a head doctor
     $query = "SELECT Head_Licence_No FROM Hospital;"; 
     $result = mysqli_query($connection, $query);
     $is_head = False;
 
     while($row=mysqli_fetch_assoc($result)) {
-       if ($row["Head_Licence_No"] == $licence_no) {
+       if ($row["Head_Licence_No"] == $licence_no) { // if head, don't allow deletion
            echo "<h5 style='color: red'> Unable to delete, this Doctor is the head of a hospital</h5>";
 	   $is_head = True;
        }
@@ -35,10 +36,12 @@ if (isset($_POST["delete_doctor"])) {
         $query = "SELECT Doctor_Licence_No FROM Treats WHERE Doctor_Licence_No = '$licence_no';";
         $result = mysqli_query($connection, $query);
 
-        if(mysqli_num_rows($result) != 0) {
+        if(mysqli_num_rows($result) != 0) { // if not empty result (doctor has patients)
 		$has_patients = True;
 ?>
                 <h4 style="color: red;">This Doctor is treating patients, are you sure you want to delete them?</h4>
+
+		<!-- confirm delete form -->
                 <form action="delete_doctor.php" method="POST">
                 <input type="hidden" name="licenceno" value="<?php echo $licence_no ?>">
             	<input type="submit" name="yes_delete" value="Yes">
@@ -50,6 +53,7 @@ if (isset($_POST["delete_doctor"])) {
     }
 }
 
+// if doctor does not have patients or has patients and delete confirmed by user, proceed to delete doctor
 if (isset($_POST["yes_delete"]) || (isset($has_patients) && $has_patients == False)) {
 
     $query = "DELETE FROM Doctor WHERE Licence_No = '$licence_no';";
@@ -58,6 +62,7 @@ if (isset($_POST["yes_delete"]) || (isset($has_patients) && $has_patients == Fal
     if ($result == True) echo "<p style='color: green;'><b>success</b></p>";
 }
 
+// generate table of current doctors to delete from
 $query = "SELECT Licence_No, First_Name, Last_Name FROM Doctor;";
 $result = mysqli_query($connection, $query);
 
@@ -88,9 +93,8 @@ if (!(mysqli_num_rows($result) == 0)) {
 mysqli_free_result($result);
 }
 
-mysqli_close($connection);
+mysqli_close($connection); // close connection
 ?>
 </table>
-<!-- <h4>To delete a doctor, click on the X beside their respective rows</h4> -->
 </body>
 </html>

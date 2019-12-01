@@ -1,4 +1,5 @@
 <?php
+// function that checks if the character length for attributes that cannot have a character length over 20 or if the case where the user is entering the specialty of a doctor which cannot be over 30 characters
 
 function validCharLength($string, $isspecialty=0) {
     if ($isspecialty == 1) {

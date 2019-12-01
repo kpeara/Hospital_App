@@ -1,3 +1,4 @@
+<!-- page where user can see current doctors in a table which they can order by first or last name in ascending or decending order -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +12,10 @@
 <table>
 <?php
 
-include("dbconnect.php");
+include("dbconnect.php"); // start connection
 
 if (isset($_POST["define_order"]) && !empty($_POST["col_order"])) {
+    // if form submitted and radio buttons not empty
     $name = $_POST["col_order"];
     $order = $_POST["row_order"];
 
@@ -22,6 +24,7 @@ if (isset($_POST["define_order"]) && !empty($_POST["col_order"])) {
 
 ?>
 
+<!-- generate table -->
 <tr style="background-color: lightblue;">
     <th>First Name</th>
     <th>Last Name</th>
@@ -42,18 +45,21 @@ if (isset($_POST["define_order"]) && !empty($_POST["col_order"])) {
     mysqli_free_result($result);
 }
 else if (isset($_POST["define_order"]) && empty($_POST["col_order"]) && empty($_POST["row_order"])){
-   // case where no radio buttons selected
+   // if form submitted but no radio buttons selected
    echo "<p style='color: red;'>" . "<b>Error: No Options Selected</b>" . "</p>";
 }
 else if (isset($_POST["define_order"]) && empty($_POST["col_order"])){
+   // if order (ascending/descending) not selected
    echo "<p style='color: red;'>" . "<b>Error: Select Column to Order By</b>" . "</p>";
 }
 
-mysqli_close($connection);
+mysqli_close($connection); // close connection
 
 ?>
 </table>
 <br>
+
+<!-- Form to order the table by the doctors first name or last name in ascending or descending order -->
 <form action="index.php" method="POST">
     <div>
         <h4>Order Columns By:</h4>

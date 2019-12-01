@@ -1,7 +1,10 @@
+<!-- include functions that check if licence number and ohip number follow proper format -->
 <?php
 include("validLicenceNo.php");
 include("validOHIP.php");
 ?>
+
+<!-- page that allows the user to assign a doctor to treat a patient or stop a doctor from treating a patient -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,12 +18,14 @@ include("validOHIP.php");
 <table>
 <?php
 
-include("dbconnect.php");
+include("dbconnect.php"); // start connection
 
+// if user pushes stop treatment button beside a treatment in a table
 if (isset($_POST["stop_treatment"])) {
     $licence_no = $_POST["licenceno"];
     $ohip = $_POST["ohip"];
 
+    // stop the treatment
     $query = "DELETE FROM Treats WHERE Doctor_Licence_No = '$licence_no' AND Patient_OHIP = '$ohip';";
     $result = mysqli_query($connection, $query);
 
@@ -49,12 +54,14 @@ else if (isset($_POST["start_treatment"]) && validOHIP($_POST["ohip"]) && validL
 	die();
     }
 
+    // start treatment
     $query = "INSERT INTO Treats VALUES ('$licence_no', $ohip)";
     $result = mysqli_query($connection, $query);
 
     if ($result == True) echo "<p style='color: green;'><b>treatment started</b></p>";
 }
 
+// generate table of patients and doctors that treat said patients with a button that allows the treatment to be stopped
 $query = "SELECT D.First_Name, D.Last_Name FROM Doctor D LEFT JOIN Treats T ON D.Licence_No = T.Doctor_Licence_No WHERE T.Doctor_Licence_No IS NULL;";
 $query = "SELECT Doctor_Licence_No, Doctor.First_Name AS Doctor_First_Name, Doctor.Last_Name AS Doctor_Last_Name, Patient_OHIP, Patient.First_Name AS Patient_First_Name, Patient.Last_Name AS Patient_Last_Name FROM Treats JOIN Patient ON Patient_OHIP = OHIP_No JOIN Doctor ON Licence_No = Doctor_Licence_No;";
 $result = mysqli_query($connection, $query);
@@ -96,7 +103,7 @@ mysqli_close($connection);
 
 ?>
 </table>
-
+<!-- form that allows user to start a treatment for a patient with a given doctor -->
 <br>
 <h4>Assign a Doctor to Treat a Patient</h4>
 <table>
